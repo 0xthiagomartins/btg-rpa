@@ -30,6 +30,16 @@ COLLUMNS = [
 ]
 
 
+def start(driver):
+    wait = WebDriverWait(driver, 10)
+    start_button = wait.until(
+        EC.presence_of_element_located(
+            (By.XPATH, "/html/body/app-root/div[2]/app-rpa1/div/div[1]/div[6]/button")
+        )
+    )
+    start_button.click()
+
+
 def fill_form(row, driver):
     print("Starting to fill form for the current row.")
     wait = WebDriverWait(driver, 10)
@@ -63,6 +73,8 @@ if __name__ == "__main__":
         driver.get(url)
         wait = WebDriverWait(driver, 10)
         sleep(2.5)
+        print("Startign challenge")
+        start(driver)
         for index, row in data.iterrows():
             print("=" * 25)
             print("\n\n")
@@ -74,7 +86,7 @@ if __name__ == "__main__":
                     (By.CSS_SELECTOR, "input[type='submit'][value='Submit']")
                 )
             )
-            sleep(5)
+            sleep(2.5)
             submit_button.click()
             print("Form submitted successfully.\n")
 
